@@ -43,19 +43,29 @@
 
         //sse get content
         if(typeof(EventSource) !== "undefined") {
-            var source = new EventSource("/chat/get");
+            var source          = new EventSource('{{ URL::route('chat.get') }}'),
+                user_id         = $('#inputUserId').val(),
+                message_content = '';
             source.onmessage = function(event) {
+                var base_url = '{{{ url('/') }}}';
+                //check origin site
+                if (event.origin != base_url) {
+                    $('.chat-content').append('<p style="color: red; font-size: 12px">Origin not from ' + base_url + '</p>');
+//                    source.close();
+                    return;
+                }
+                //handling for data received
                 if(event.data != undefined && event.data.length > 0) {
-                    var contents    = JSON.parse(event.data);
-                    var user_id     = $('#inputUserId').val();
+                    var contents = JSON.parse(event.data);
                     for(var i=0; i<contents.length; i++) {
                         //check exist for view
                         if($('.chat-content p.'+contents[i][0]).length <= 0) {
                             if(user_id == contents[i][1]) {
-                                $('.chat-content').append('<p style="text-align: right;" class="' + contents[i][0] + '">' + contents[i][2] + '<b> :me</b></p>');
+                                message_content = '<p style="text-align: right;" class="' + contents[i][0] + '">' + contents[i][2] + '<b> :me</b></p>';
                             } else {
-                                $('.chat-content').append('<p class="' + contents[i][0] + '"><b>' + contents[i][1] + ':</b> ' + contents[i][2] + '</p>');
+                                message_content = '<p class="' + contents[i][0] + '"><b>' + contents[i][1] + ':</b> ' + contents[i][2] + '</p>';
                             }
+                            $('.chat-content').append(message_content);
                         }
                     }
                 }

@@ -75,6 +75,7 @@ class ChatController extends Controller
                         $message->creater,
                         $message->content
                     ];
+                    //update reader for per message
                     $chat = $this->repChat->getById($message->id);
                     $inputs = [
                         'read_flg' => $chat->read_flg.$user_id
@@ -86,7 +87,7 @@ class ChatController extends Controller
                 echo "data: $content_array\n\n";
                 ob_flush();
                 flush();
-            });
+        });
         $response->send();
     }
 
