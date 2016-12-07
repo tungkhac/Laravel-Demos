@@ -47,9 +47,9 @@ class ChatController extends Controller
         if($request->has('content') && $request->has('user_id')) {
             $content = $request->get('content');
             $user_id = $request->get('user_id');
-            $user_id = '_'.$user_id.'_';
             $inputs = [
                 'content' => $content,
+                'creater' => $user_id,
                 'read_flg' => ''
             ];
             $this->repChat->store($inputs);
@@ -72,6 +72,7 @@ class ChatController extends Controller
                 foreach ($message_unread as $message) {
                     $content_array[] = [
                         $message->id,
+                        $message->creater,
                         $message->content
                     ];
                     $chat = $this->repChat->getById($message->id);

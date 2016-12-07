@@ -28,7 +28,7 @@ class ChatRepository extends BaseRepository
     public function store($inputs)
     {
         $chat = new $this->model;
-//        $chat->user_id        = bcrypt($inputs['user_id']);
+        $chat->creater        = $inputs['creater'];
         $this->save($chat, $inputs);
 
         return $chat;

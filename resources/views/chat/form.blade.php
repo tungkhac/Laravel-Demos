@@ -17,7 +17,7 @@
             {!! Form::close() !!}
             <br />
         </div>
-        <div class="chat-content"></div>
+        <div class="chat-content" style="width: 400px; border: 1px solid #ccc; padding: 20px; float: left;"></div>
     </div>
 
     <script type="text/javascript">
@@ -27,7 +27,7 @@
             $.ajax({
                 url: url,
                 data: {
-                    "_token"    : "{{ csrf_token() }}",
+                    "_token"   : "{{ csrf_token() }}",
                     'content'  : $('#inputContent').val(),
                     'user_id'  : $('#inputUserId').val()
                 },
@@ -46,11 +46,16 @@
             var source = new EventSource("/chat/get");
             source.onmessage = function(event) {
                 if(event.data != undefined && event.data.length > 0) {
-                    var contents = JSON.parse(event.data);
+                    var contents    = JSON.parse(event.data);
+                    var user_id     = $('#inputUserId').val();
                     for(var i=0; i<contents.length; i++) {
                         //check exist for view
                         if($('.chat-content p.'+contents[i][0]).length <= 0) {
-                            $('.chat-content').append('<p class="'+contents[i][0]+'">'+contents[i][1]+'</p>');
+                            if(user_id == contents[i][1]) {
+                                $('.chat-content').append('<p style="text-align: right;" class="' + contents[i][0] + '">' + contents[i][2] + '<b> :me</b></p>');
+                            } else {
+                                $('.chat-content').append('<p class="' + contents[i][0] + '"><b>' + contents[i][1] + ':</b> ' + contents[i][2] + '</p>');
+                            }
                         }
                     }
                 }
