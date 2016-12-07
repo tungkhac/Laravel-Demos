@@ -10,18 +10,19 @@
 <body>
     <div class=" card-box">
         <div class="panel-body">
+            {!! Form::open(['class' => 'form-horizontal', 'method' => 'POST', 'id' => 'sse-form']) !!}
                 {!! Form::hidden('user_id', @$user_id, ['id' => 'inputUserId', 'class' => "form-control"]) !!}
                 {!! Form::text('content', null, ['id' => 'inputContent', 'class' => "form-control"]) !!}
                 <button id="btn-sent" class="btn btn-lg btn-login btn-block" type="submit">Sent</button>
+            {!! Form::close() !!}
             <br />
         </div>
-        <div class="chat-content">
-
-        </div>
+        <div class="chat-content"></div>
     </div>
 
     <script type="text/javascript">
-        $('#btn-sent').on('click', function (e) {
+        $('#sse-form').on('submit', function (e) {
+            e.preventDefault();
             var url = '{{ URL::route('chat.create') }}';
             $.ajax({
                 url: url,
@@ -33,8 +34,9 @@
                 type: 'POST',
                 success: function (data) {
                     if(!data.success){
-                        alert('Can not sent, pls try again!');
+//                        alert('Can not sent, pls try again!');
                     }
+                    $('#inputContent').val('');
                 }
             });
         });
@@ -46,7 +48,10 @@
                 if(event.data != undefined && event.data.length > 0) {
                     var contents = JSON.parse(event.data);
                     for(var i=0; i<contents.length; i++) {
-                        $('.chat-content').append('<p>'+contents[i]+'</p>');
+                        //check exist for view
+                        if($('.chat-content p.'+contents[i][0]).length <= 0) {
+                            $('.chat-content').append('<p class="'+contents[i][0]+'">'+contents[i][1]+'</p>');
+                        }
                     }
                 }
             };

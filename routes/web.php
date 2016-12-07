@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/', function () {
     return redirect('/home');
 });
-Route::get('chat', 'ChatController@index');
+Route::any('chat', 'ChatController@index');
 Route::get('chat2', 'ChatController@index2');
 Route::post('chat/create', ['uses' => 'ChatController@create', 'as' => 'chat.create']);
 Route::get('chat/get', ['uses' => 'ChatController@get', 'as' => 'chat.get']);

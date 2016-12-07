@@ -70,7 +70,10 @@ class ChatController extends Controller
                 $message_unread = $this->repChat->getUnRead($user_id);
                 $content_array = [];
                 foreach ($message_unread as $message) {
-                    $content_array[] = $message->content;
+                    $content_array[] = [
+                        $message->id,
+                        $message->content
+                    ];
                     $chat = $this->repChat->getById($message->id);
                     $inputs = [
                         'read_flg' => $chat->read_flg.$user_id
