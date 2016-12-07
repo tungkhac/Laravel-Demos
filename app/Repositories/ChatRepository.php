@@ -66,8 +66,8 @@ class ChatRepository extends BaseRepository
     public function getUnRead($user_id)
     {
         $model = new $this->model;
-        $model = $model->where('read_flg', 'not like', '%'.$user_id.'%');
-        $model = $model->orWhere('read_flg', 'isNull');
+        $model = $model->where('read_flg', 'not like', '%'.$user_id.'%')
+            ->orWhereNull('read_flg');
         $model = $model->orderby('created_at');
         return $model->get();
     }

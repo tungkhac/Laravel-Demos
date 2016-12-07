@@ -33,13 +33,13 @@ class ChatController extends Controller
     {
         $user_id_cookie = $request->cookie('user_id');
         if($user_id_cookie) {
-            $this->user_id = $user_id_cookie;
+            $user_id = $user_id_cookie;
         } else {
-            $this->user_id = time();
+            $user_id = time();
         }
         return response(view('chat/form')->with([
-            'user_id' => $this->user_id,
-        ]))->withCookie(cookie()->make('user_id', $this->user_id));
+            'user_id' => $user_id,
+        ]))->withCookie(cookie()->make('user_id', $user_id));
     }
 
     public function create(Request $request)
@@ -91,9 +91,9 @@ class ChatController extends Controller
 
     public function index2(Request $request)
     {
-        $this->user_id = time();
+        $user_id = time();
         return view('chat/form2')->with([
-            'user_id' => $this->user_id,
+            'user_id' => $user_id,
         ]);
     }
 }
