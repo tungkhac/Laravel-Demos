@@ -2,10 +2,10 @@
 
 namespace App\Hcm;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Hcm\BaseHcm;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Site extends Model
+class Site extends BaseHcm
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Repositories\Hcm;
-use App\Repositories\Hcm\BaseHCMRepository;
+use App\Repositories\BaseRepository;
 use App\Hcm\Site;
 
-class SiteRepository extends BaseHCMRepository
+class SiteRepository extends BaseRepository
 {
 	/**
 	 * Create a new UserRepository instance.
@@ -14,7 +14,6 @@ class SiteRepository extends BaseHCMRepository
 	 */
 	public function __construct(Site $site)
 	{
-	    parent::__construct();
 		$this->model = $site;
 	}
 
