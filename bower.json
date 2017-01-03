@@ -1,6 +1,6 @@
 {
-  "name": "sns",
-  "description": "sns project",
+  "name": "test",
+  "description": "test project",
   "ignore": [
     "**/.*",
     "node_modules",

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RedirectIfAuthenticated
 {
@@ -18,9 +19,13 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            $authority = config('constants.authority');
+            if(Auth::user()->authority == $authority['admin']){
+                return redirect('home');
+            } elseif(Auth::user()->authority == $authority['client']){
+                return redirect('home');
+            }
         }
-
         return $next($request);
     }
 }
