@@ -83,7 +83,7 @@ class UserRepository extends BaseRepository
     public function getAll2()
     {
         $model = new $this->model;
-        $model = $model->select('id','name');
+//        $model = $model->select('id','name');
         return $model->get();
     }
 }

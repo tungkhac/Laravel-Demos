@@ -5,10 +5,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Hcm\SiteRepository;
+use App\Repositories\UserRepository;
 
 class HcmController extends Controller
 {
     protected $repSite;
+    protected $repUser;
 
     /**
      * Create a new controller instance.
@@ -16,11 +18,13 @@ class HcmController extends Controller
      * @return void
      */
     public function __construct(
-        SiteRepository $site
+        SiteRepository $site,
+        UserRepository $user
     )
     {
         $this->middleware('auth.subdomain', ['except' => ['test']]);
         $this->repSite     = $site;
+        $this->repUser     = $user;
     }
 
     /**
@@ -32,8 +36,10 @@ class HcmController extends Controller
     {
         $user_id = Auth::user()->id;
         $sites = $this->repSite->getAllByField('user_id', $user_id);
+        $users = $this->repUser->getAll2();
         return view('hcm/home')->with([
             'sites' => $sites,
+            'users' => $users,
         ]);
     }
 }
