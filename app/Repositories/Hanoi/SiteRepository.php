@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Repositories\Hanoi;
-use App\Repositories\BaseRepository;
+use App\Repositories\Hanoi\BaseHaNoiRepository;
 use App\Hanoi\Site;
+use Illuminate\Support\Facades\Config;
 
-class SiteRepository extends BaseRepository
+class SiteRepository extends BaseHaNoiRepository
 {
 	/**
 	 * Create a new UserRepository instance.
@@ -14,10 +15,12 @@ class SiteRepository extends BaseRepository
 	 */
 	public function __construct(Site $site)
 	{
+        parent::__construct();
         $this->model = $site;
     }
 
-	/**
+
+    /**
 	 * Save the User.
 	 *
 	 * @param  App\User $user

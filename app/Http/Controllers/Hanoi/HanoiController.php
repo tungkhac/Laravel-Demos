@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Hanoi;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Hanoi\SiteRepository;
@@ -19,7 +20,6 @@ class HanoiController extends Controller
         SiteRepository $site
     )
     {
-        parent::__construct();
         $this->middleware('auth.subdomain', ['except' => ['test']]);
         $this->repSite     = $site;
     }

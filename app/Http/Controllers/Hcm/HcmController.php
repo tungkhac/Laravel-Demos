@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Hcm;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Hcm\SiteRepository;
@@ -18,7 +19,6 @@ class HcmController extends Controller
         SiteRepository $site
     )
     {
-        parent::__construct();
         $this->middleware('auth.subdomain', ['except' => ['test']]);
         $this->repSite     = $site;
     }
