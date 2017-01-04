@@ -10,7 +10,7 @@ DB main: laravel_test
 
 2 sub DB: 
 
-DB 2: laravel_test_hanoi
+DB 1: laravel_test_hanoi
 
 DB 2: laravel_test_hcm
 
