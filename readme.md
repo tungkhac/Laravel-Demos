@@ -35,6 +35,13 @@ This session can using for base and sub domain
 
 Base domain will use mysql connection.
 
+In .env file:
+
+Add: 
+
+    DB_DATABASE_HANOI=laravel_test_hanoi
+    DB_DATABASE_HCM=laravel_test_hcm
+
 In config/database.php, create new connections for per sub domain.
 
 Ex:
