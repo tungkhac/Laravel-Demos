@@ -1,3 +1,4 @@
+## Per sub-domain a namespace
 # Document for DEMO many sub-domain with many database using a Users table in common database
 
 
